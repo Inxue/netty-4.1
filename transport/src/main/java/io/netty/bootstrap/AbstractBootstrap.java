@@ -288,6 +288,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         if (regFuture.isDone()) {
             // At this point we know that the registration was complete and successful.
             ChannelPromise promise = channel.newPromise();
+            //绑定端口
             doBind0(regFuture, channel, localAddress, promise);
             return promise;
         } else {
@@ -305,7 +306,6 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
                         // Registration was successful, so set the correct executor to use.
                         // See https://github.com/netty/netty/issues/2586
                         promise.registered();
-
                         doBind0(regFuture, channel, localAddress, promise);
                     }
                 }

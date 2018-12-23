@@ -471,7 +471,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
             }
 
             AbstractChannel.this.eventLoop = eventLoop;
-
+            //注册selector,不管是服务端channel还是客户端channel
             if (eventLoop.inEventLoop()) {
                 register0(promise);
             } else {
@@ -510,7 +510,7 @@ public abstract class AbstractChannel extends DefaultAttributeMap implements Cha
                 pipeline.invokeHandlerAddedIfNeeded();
 
                 safeSetSuccess(promise);
-                pipeline.fireChannelRegistered();
+                pipeline.fireChannelRegistered();//广播channel registered事件
                 // Only fire a channelActive if the channel has never been registered. This prevents firing
                 // multiple channel actives if the channel is deregistered and re-registered.
                 if (isActive()) {
