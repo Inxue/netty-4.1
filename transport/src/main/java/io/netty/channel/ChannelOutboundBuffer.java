@@ -111,6 +111,7 @@ public final class ChannelOutboundBuffer {
      */
     public void addMessage(Object msg, int size, ChannelPromise promise) {
         Entry entry = Entry.newInstance(msg, size, total(msg), promise);
+        //调整3个指针
         if (tailEntry == null) {
             flushedEntry = null;
             tailEntry = entry;
@@ -166,6 +167,7 @@ public final class ChannelOutboundBuffer {
         incrementPendingOutboundBytes(size, true);
     }
 
+    //统计当前有多少字节需要被写出
     private void incrementPendingOutboundBytes(long size, boolean invokeLater) {
         if (size == 0) {
             return;

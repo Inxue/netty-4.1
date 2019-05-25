@@ -32,12 +32,15 @@ final class PooledUnsafeDirectByteBuf extends PooledByteBuf<ByteBuffer> {
     private static final Recycler<PooledUnsafeDirectByteBuf> RECYCLER = new Recycler<PooledUnsafeDirectByteBuf>() {
         @Override
         protected PooledUnsafeDirectByteBuf newObject(Handle<PooledUnsafeDirectByteBuf> handle) {
+            //回收站没有的时候创建ByteBuf
+            //handle负责byteBuf的回收
             return new PooledUnsafeDirectByteBuf(handle, 0);
         }
     };
 
     static PooledUnsafeDirectByteBuf newInstance(int maxCapacity) {
         PooledUnsafeDirectByteBuf buf = RECYCLER.get();
+        //回收站拿到的ByteBuf,进行复用
         buf.reuse(maxCapacity);
         return buf;
     }

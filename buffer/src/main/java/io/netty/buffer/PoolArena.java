@@ -32,9 +32,9 @@ abstract class PoolArena<T> implements PoolArenaMetric {
     static final boolean HAS_UNSAFE = PlatformDependent.hasUnsafe();
 
     enum SizeClass {
-        Tiny,
-        Small,
-        Normal
+        Tiny,//0-512B
+        Small,//512-8K
+        Normal//8K-16M
     }
 
     static final int numTinySubpagePools = 512 >>> 4;
